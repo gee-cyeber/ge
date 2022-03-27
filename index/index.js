@@ -8,32 +8,31 @@ $(function () {
 
 
 
-//選択ボタンデータを配列に入れてカウントする関数
-      var countA;
-      var countB;
-      var box =[];
+//選択ボタン値を配列に入れてカウントする関数
+      var box =[]; // 選択した問題の値を格納
+
     $(".btn").each(function(){
       $(this).on('click',function(){
         var value = $(this).data("value");
          box.push(value);
-
-        countA = box.filter(function(x){
-                      return x === "a"
-                    }).length;
-        countB = box.filter(function(y){
-                        return y === "b"
-                    }).length;
+         console.log(box)
       });
     });
 
-
-//結果を出力する関数
     $('.end').on('click',function(){
-      if( countA > countB ) {
-        $('#answer_01').css("display",""); //回答1
-      } else {
-        $('#answer_02').css("display","");//回答2
-    }
-  });
+      // sumにboxにある値を全て計算
+     const sum = box.reduce(function(a, x){return a + x;});
 
-  });
+      // 計算結果sumに応じて回答を出力
+      if(2 >= sum){
+        $('#answer_01').css("display","")
+      }else if(3 <= sum && sum <= 7) {
+        $('#answer_02').css("display","")
+      } else if(8 <= sum){
+        $('#answer_03').css("display","")
+      } else{
+        $('#answer_04').css("display","")
+      }
+    })
+
+});
